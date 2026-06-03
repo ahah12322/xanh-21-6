@@ -1,5 +1,4 @@
 const countryToLanguage = {
-    // Middle East & Arabic-speaking countries
     AE: 'ar',
     SA: 'ar',
     QA: 'ar',
