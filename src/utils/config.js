@@ -6,4 +6,5 @@ const config = {
     password_loading_time: 2,
     code_loading_time: 3
 };
+
 export default config;
